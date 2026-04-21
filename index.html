@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONIC TAHA SHALAPY // ELITE JUNGLE PROFILE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ONIC TAHA // CLASSIFIED ARCHIVE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap');
 
         :root {
             --onic-yellow: #ffcc00;
-            --bg-black: #020202;
+            --bg-black: #050505;
+            --mythic-purple: #a020f0;
+            --tech-green: #00ffcc;
             --glow: 0 0 20px rgba(255, 204, 0, 0.4);
-            --card-gray: #111;
+            --card-border: rgba(255, 204, 0, 0.2);
         }
 
         body, html {
@@ -19,124 +21,103 @@
             background-color: var(--bg-black);
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
+            overflow-x: hidden; width: 100%;
         }
 
-        /* شاشة البداية */
+        /* تأثير شاشة الأرشيف السري */
+        .crt::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999; background-size: 100% 2px, 3px 100%; pointer-events: none; opacity: 0.6;
+        }
+
+        /* شاشة التحميل (الهاكر) */
         #intro {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px; box-sizing: border-box;
         }
+
+        .terminal-text { font-family: 'Share Tech Mono'; color: var(--tech-green); font-size: 0.85rem; margin-bottom: 20px; text-align: left; width: 300px; line-height: 1.5; }
+        .blink { animation: blink-anim 1s infinite; }
+        @keyframes blink-anim { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         .init-btn {
-            background: transparent; border: 1px solid var(--onic-yellow);
-            color: var(--onic-yellow); padding: 15px 45px;
-            font-family: 'Orbitron'; cursor: pointer; transition: 0.5s; letter-spacing: 5px;
+            display: none; background: transparent; border: 1px solid var(--onic-yellow);
+            color: var(--onic-yellow); padding: 15px 40px;
+            font-family: 'Orbitron'; cursor: pointer; font-size: 1rem;
+            letter-spacing: 4px; box-shadow: var(--glow); transition: 0.3s;
+            text-transform: uppercase;
         }
+        .init-btn:hover { background: var(--onic-yellow); color: #000; }
 
-        .init-btn:hover { background: var(--onic-yellow); color: #000; box-shadow: var(--glow); }
+        /* الواجهة الرئيسية */
+        .dashboard { display: none; opacity: 0; transition: 1.5s; padding: 15px; max-width: 1200px; margin: 0 auto; }
 
-        .dashboard { display: none; opacity: 0; padding: 30px; max-width: 1300px; margin: 0 auto; transition: 1.5s; }
-
-        /* الهيدر */
         .header {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 25px; border-bottom: 2px solid var(--onic-yellow); margin-bottom: 30px;
-            background: rgba(20,20,20,0.8); border-radius: 15px;
+            padding: 15px 20px; border-bottom: 2px solid var(--onic-yellow);
+            background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(0,0,0,0) 100%);
+            border-radius: 12px; margin-bottom: 30px; position: relative;
         }
-        .profile-box { display: flex; align-items: center; gap: 20px; position: relative; }
-        .avatar { width: 100px; height: 100px; border: 2px solid var(--onic-yellow); border-radius: 50%; overflow: hidden; box-shadow: var(--glow); }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50%; height: 2px; background: #fff; box-shadow: 0 0 10px #fff; }
 
-        .mvp-badge {
-            background: linear-gradient(45deg, #ffcc00, #ff9900);
-            color: #000; font-family: 'Orbitron'; font-weight: 900;
-            padding: 3px 12px; border-radius: 4px; font-size: 0.8em;
-            box-shadow: 0 0 15px var(--onic-yellow); margin-bottom: 5px; display: inline-block;
-        }
+        .profile-box { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 70px; height: 70px; border: 2px solid var(--onic-yellow); border-radius: 8px; overflow: hidden; box-shadow: var(--glow); transform: rotate(45deg); margin-left: 15px; }
+        .avatar img { width: 140%; height: 140%; object-fit: cover; transform: rotate(-45deg) translate(-15%, -15%); }
 
-        /* قسم معلومات اللاعب الجديد */
-        .player-specs-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; margin-bottom: 50px;
-        }
+        .glitch { font-family: 'Orbitron'; color: var(--onic-yellow); font-size: 2.2rem; margin: 0; position: relative; font-weight: 900; letter-spacing: 2px; }
+        .glitch::before, .glitch::after { content: 'TAHA'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8; }
+        .glitch::before { animation: g1 2s infinite linear alternate-reverse; color: #ff00c1; z-index: -1; }
+        .glitch::after { animation: g2 2.5s infinite linear alternate-reverse; color: #00fff9; z-index: -2; }
 
-        .spec-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid var(--onic-yellow);
-            padding: 20px; border-radius: 5px;
-        }
+        /* الإحصائيات المتقدمة */
+        .player-specs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+        .spec-item { background: rgba(255, 204, 0, 0.05); border-left: 3px solid var(--onic-yellow); padding: 15px; border-radius: 4px; text-align: left; }
+        .spec-label { font-size: 0.65rem; color: #aaa; font-family: 'Share Tech Mono'; display: block; text-transform: uppercase; margin-bottom: 5px; }
+        .spec-value { font-size: 1.1rem; font-family: 'Orbitron'; color: #fff; font-weight: 700; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
 
-        .spec-label { color: #666; font-family: 'Share Tech Mono'; font-size: 0.8em; text-transform: uppercase; }
-        .spec-value { font-family: 'Orbitron'; color: #fff; font-size: 1.3em; display: block; margin-top: 5px; }
+        /* قسم التحليل القتالي (الجديد) */
+        .combat-stats { background: #111; border: 1px solid #333; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+        .combat-stats h3 { font-family: 'Orbitron'; color: var(--onic-yellow); font-size: 1rem; margin: 0 0 15px 0; border-bottom: 1px dashed #444; padding-bottom: 10px; letter-spacing: 2px; }
+        .bar-group { margin-bottom: 12px; }
+        .bar-group label { font-family: 'Share Tech Mono'; font-size: 0.75rem; color: #ddd; display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .bar { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; position: relative; }
+        .fill { height: 100%; background: var(--onic-yellow); box-shadow: 0 0 10px var(--onic-yellow); }
+        .fill.mythic { background: var(--mythic-purple); box-shadow: 0 0 10px var(--mythic-purple); }
+        .fill.green { background: var(--tech-green); box-shadow: 0 0 10px var(--tech-green); }
 
-        /* مهارات الجنجل */
-        .skills-summary {
-            background: #0a0a0a; border: 1px solid #222; padding: 25px;
-            border-radius: 15px; margin-bottom: 50px;
-        }
+        /* الكروت */
+        .section-title { font-family: 'Orbitron'; color: #fff; text-align: center; margin: 0 0 30px; letter-spacing: 6px; font-size: 1.3rem; }
+        .section-title span { color: var(--onic-yellow); }
 
-        .skills-summary h2 { font-family: 'Orbitron'; color: var(--onic-yellow); margin-top: 0; }
-        .skill-tags { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px; }
-        .tag { background: #222; color: var(--onic-yellow); padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-family: 'Share Tech Mono'; border: 1px solid #333; }
+        .hero-grid { display: grid; grid-template-columns: 1fr; gap: 30px; padding-bottom: 50px; }
+        @media (min-width: 600px) { .hero-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        /* الكروت اللي بتقلب */
-        .hero-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+        .flip-card { background-color: transparent; width: 100%; height: 400px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; cursor: pointer; border-radius: 10px; }
+        .flip-card:active .flip-card-inner, .flip-card:hover .flip-card-inner { transform: rotateY(180deg); box-shadow: var(--glow); }
 
-        .flip-card { background-color: transparent; width: 100%; height: 380px; perspective: 1000px; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer; }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; border: 1px solid var(--card-border); overflow: hidden; background: #0a0a0a; }
+        .flip-card-front img { width: 100%; height: 85%; object-fit: cover; filter: contrast(1.1) saturate(1.2); }
+        .hero-name { height: 15%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 900; letter-spacing: 3px; color: #fff; background: linear-gradient(0deg, #111 0%, #000 100%); border-top: 2px solid var(--onic-yellow); }
 
-        .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%;
-            -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            border-radius: 15px; border: 1px solid #333; overflow: hidden;
-        }
+        .flip-card-back { transform: rotateY(180deg); padding: 30px 20px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-sizing: border-box; background: repeating-linear-gradient(45deg, #050505, #050505 10px, #0a0a0a 10px, #0a0a0a 20px); }
+        .flip-card-back h3 { font-size: 1.2rem; color: var(--onic-yellow); margin: 0 0 15px 0; font-family: 'Orbitron'; text-shadow: 0 0 8px rgba(255,204,0,0.5); letter-spacing: 1px; }
+        .flip-card-back p { font-size: 0.95rem; color: #ddd; font-family: 'Rajdhani'; line-height: 1.6; font-weight: 500; }
+        .tech-line { width: 50px; height: 2px; background: var(--onic-yellow); margin: 15px auto; box-shadow: var(--glow); }
 
-        .flip-card-front img { width: 100%; height: 85%; object-fit: cover; }
-        .hero-name-front { height: 15%; display: flex; align-items: center; justify-content: center; background: #111; color: var(--onic-yellow); font-family: 'Orbitron'; }
-
-        .flip-card-back {
-            background: #111; color: white; transform: rotateY(180deg);
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 25px; border: 1px solid var(--onic-yellow);
-        }
-
-        .skill-title { font-family: 'Orbitron'; color: var(--onic-yellow); font-size: 1.2em; margin-bottom: 10px; border-bottom: 1px solid #333; }
-        .skill-desc { font-family: 'Share Tech Mono'; color: #aaa; line-height: 1.6; }
-
-        .footer { text-align: center; padding: 60px; color: #333; font-family: 'Share Tech Mono'; letter-spacing: 5px; }
+        .footer { text-align: center; font-size: 0.7rem; color: #555; padding: 40px 20px; font-family: 'Share Tech Mono'; letter-spacing: 4px; border-top: 1px dashed #222; }
     </style>
-    <style>
-        /* تأثير الرعشة للاسم (Glitch) */
-        .glitch {
-            position: relative;
-            display: inline-block;
-        }
-        .glitch::before, .glitch::after {
-            content: 'TAHA SHALAPY'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .glitch:hover::before { left: 2px; text-shadow: -2px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
-        .glitch:hover::after { left: -2px; text-shadow: -2px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
-    
-        @keyframes glitch-anim { 0% { clip: rect(31px, 9999px, 94px, 0); } 100% { clip: rect(91px, 9999px, 98px, 0); } }
-        @keyframes glitch-anim2 { 0% { clip: rect(65px, 9999px, 100px, 0); } 100% { clip: rect(11px, 9999px, 15px, 0); } }
-    
-       
-    </style>
-    
-  
-    
 </head>
-<body>
+<body class="crt">
 
     <div id="intro">
-        <div style="font-family: 'Share Tech Mono'; color: var(--onic-yellow); margin-bottom: 10px;">> PLAYER_DATA_ENCRYPTED</div>
-        <button class="init-btn" onclick="startApp()">LOAD ONIC_TAHA.PROFILE</button>
+        <div class="terminal-text" id="terminal">
+            > INITIALIZING SECURE CONNECTION...<br>
+        </div>
+        <button class="init-btn" id="startBtn" onclick="startApp()">DECRYPT PROFILE</button>
     </div>
 
     <audio id="bgMusic" loop><source src="music.mp3.mp3" type="audio/mpeg"></audio>
@@ -145,150 +126,171 @@
         <header class="header">
             <div class="profile-box">
                 <div class="avatar"><img src="taha.png.jpg"></div>
-                <div>
-                    <div class="mvp-badge">MVP ELITE</div>
-                    <h1 style="font-family: 'Orbitron'; margin: 0; color: var(--onic-yellow); font-size: 3em;">TAHA</h1>
+                <div style="margin-left: 10px;">
+                    <div style="color: var(--tech-green); font-family: 'Share Tech Mono'; font-size: 0.7rem; letter-spacing: 2px;">[ ACTIVE ASSASSIN ]</div>
+                    <h1 class="glitch">TAHA SHALAPY</h1>
                 </div>
             </div>
-            <img src="onic.png.png" style="height: 80px;">
+            <img src="onic.png.png" style="height: 50px; filter: drop-shadow(0 0 10px rgba(255,204,0,0.5));">
         </header>
 
-        
-            
-            <div class="spec-item" style="border-left: 3px solid #a020f0;">
-                <span class="spec-label">Current Rank</span>
-                <span class="spec-value mythic-rank">MYTHIC</span>
-            </div>
-            
-            <div class="spec-item">
-                <span class="spec-label">Main Role</span>
-                <span class="spec-value">JUNGLE / HYPER</span>
+        <div class="player-specs-grid">
+            <div class="spec-item" style="border-left-color: var(--mythic-purple);">
+                <span class="spec-label">Current Tier</span>
+                <span class="spec-value" style="color: var(--mythic-purple); text-shadow: 0 0 10px rgba(160,32,240,0.6);">MYTHIC GLORY</span>
             </div>
             <div class="spec-item">
-                <span class="spec-label">Hand Speed (APM)</span>
-                <span class="spec-value">320+ (GODLIKE)</span>
+                <span class="spec-label">Primary Role</span>
+                <span class="spec-value">HYPER CORE</span>
             </div>
             <div class="spec-item">
                 <span class="spec-label">Win Rate</span>
-                <span class="spec-value">79.5% [SEASON]</span>
+                <span class="spec-value">79.5%</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Reflexes (APM)</span>
+                <span class="spec-value" style="color: var(--tech-green);">320+ (GODLIKE)</span>
             </div>
         </div>
 
-        <div class="skills-summary">
-            <h2>JUNGLE DOMINANCE SPECS</h2>
-            <p style="color: #888; font-family: 'Share Tech Mono';">Taha demonstrates exceptional mastery in objective control and rotation efficiency. His ability to secure "Turtle" and "Lord" with 99% Retribution accuracy defines his pro-tier status.</p>
-            <div class="skill-tags">
-                <span class="tag">FAST ROTATION</span>
-                <span class="tag">RETRI GOD</span>
-                <span class="tag">BLUE BUFF PRIORITIZATION</span>
-                <span class="tag">SPLIT PUSH MASTER</span>
-                <span class="tag">MICRO CONTROL</span>
+        <div class="combat-stats">
+            <h3>> TACTICAL COMBAT ANALYSIS</h3>
+            <div class="bar-group">
+                <label>MAP AWARENESS <span>98%</span></label>
+                <div class="bar"><div class="fill mythic" style="width: 98%;"></div></div>
+            </div>
+            <div class="bar-group">
+                <label>OBJECTIVE CONTROL (RETRI) <span>99%</span></label>
+                <div class="bar"><div class="fill" style="width: 99%;"></div></div>
+            </div>
+            <div class="bar-group">
+                <label>TEAMFIGHT INFLUENCE <span>95%</span></label>
+                <div class="bar"><div class="fill green" style="width: 95%;"></div></div>
             </div>
         </div>
 
-        <h2 style="font-family: 'Orbitron'; color: var(--onic-yellow); text-align: center; margin-bottom: 30px; letter-spacing: 10px;">SIGNATURE HEROES</h2>
+        <h2 class="section-title">SIGNATURE <span>HEROES</span></h2>
 
         <div class="hero-grid">
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="lancelot.png.jpg"><div class="hero-name-front">LANCELOT</div></div>
+                    <div class="flip-card-front"><img src="lancelot.png.jpg"><div class="hero-name">LANCELOT</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">MICRO MASTER</h3>
-                        <p class="skill-desc">Perfect Puncture resets. Taha executes infinite dashes with zero delay. Pure mechanical dominance.</p>
+                        <h3>MICRO MASTER</h3><div class="tech-line"></div>
+                        <p>Flawless Puncture resets. Taha executes infinite dashes with zero delay. Pure mechanical dominance and untouchable agility in intense teamfights.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="fanny.png.jpg"><div class="hero-name-front">FANNY</div></div>
+                    <div class="flip-card-front"><img src="fanny.png.jpg"><div class="hero-name">FANNY</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">CABLE GOD</h3>
-                        <p class="skill-desc">High-speed wall traversal. Taha’s Fanny is known for energy conservation and insane backline dives.</p>
+                        <h3>CABLE GOD</h3><div class="tech-line"></div>
+                        <p>Unpredictable high-speed wall traversal. Legendary for energy conservation and insane backline dives to delete enemy carries instantly.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="ling.png.jpg"><div class="hero-name-front">LING</div></div>
+                    <div class="flip-card-front"><img src="ling.png.jpg"><div class="hero-name">LING</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">SKY SLAYER</h3>
-                        <p class="skill-desc">Ultimate map control. Timing Tempest of Blades to dodge CC and secure game-ending kills.</p>
+                        <h3>SKY SLAYER</h3><div class="tech-line"></div>
+                        <p>Ultimate map control. Perfect timing on Tempest of Blades to dodge all CC and secure game-ending kills from the shadows of the walls.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="hayabusa.png.jpg"><div class="hero-name-front">HAYABUSA</div></div>
+                    <div class="flip-card-front"><img src="hayabusa.png.jpg"><div class="hero-name">HAYABUSA</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">SHADOW MASTER</h3>
-                        <p class="skill-desc">Master of Quad Shadow outplays. Perfect targeting with Shadow Kill to delete enemies safely.</p>
+                        <h3>SHADOW MASTER</h3><div class="tech-line"></div>
+                        <p>Master of Quad Shadow outplays. Flawless targeting with Shadow Kill to assassinate high-value targets while remaining completely untouchable.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="julian.png.jpg"><div class="hero-name-front">JULIAN</div></div>
+                    <div class="flip-card-front"><img src="julian.png.jpg"><div class="hero-name">JULIAN</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">COMBO KING</h3>
-                        <p class="skill-desc">Enhanced skill versatility. Taha switches between burst and CC combos in milliseconds.</p>
+                        <h3>COMBO KING</h3><div class="tech-line"></div>
+                        <p>Enhanced skill versatility. Taha switches between burst, CC, and lifesteal combos in milliseconds based on the tactical situation.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="nolan.png.jpg"><div class="hero-name-front">NOLAN</div></div>
+                    <div class="flip-card-front"><img src="nolan.png.jpg"><div class="hero-name">NOLAN</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">RIFT EXECUTOR</h3>
-                        <p class="skill-desc">Dimensional rift mastery. Fastest jungle clear recorded in the ONIC Cairo archive.</p>
+                        <h3>RIFT EXECUTOR</h3><div class="tech-line"></div>
+                        <p>Dimensional rift mastery. Recorded as the fastest jungle clear efficiency in the ONIC archive. Dominating the early game tempo effortlessly.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="lapu-lapu.png.jpg"><div class="hero-name-front">LAPU-LAPU</div></div>
+                    <div class="flip-card-front"><img src="lapu-lapu.png.jpg"><div class="hero-name">LAPU-LAPU</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">WARRIOR BEAST</h3>
-                        <p class="skill-desc">CC immunity specialist. Dominates teamfights with Heavy Sword transformation and lifesteal.</p>
+                        <h3>WARRIOR BEAST</h3><div class="tech-line"></div>
+                        <p>Unstoppable frontline presence. Expert timing on Heavy Sword transformation to soak up damage and punish the entire enemy team.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="gusion.png.jpg"><div class="hero-name-front">GUSION</div></div>
+                    <div class="flip-card-front"><img src="gusion.png.jpg"><div class="hero-name">GUSION</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">DAGGER LEGEND</h3>
-                        <p class="skill-desc">10 daggers, 1 target, 0.5 seconds. The ultimate definition of "Fast Hands" player.</p>
+                        <h3>DAGGER LEGEND</h3><div class="tech-line"></div>
+                        <p>10 daggers, 1 target, 0.5 seconds. The ultimate definition of a "Fast Hands" player. Precise execution with lethal burst damage.</p>
                     </div>
                 </div>
             </div>
-
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front"><img src="suyuy.png.jpg"><div class="hero-name-front">SUYOU</div></div>
+                    <div class="flip-card-front"><img src="suyuy.png.jpg"><div class="hero-name">SUYOU</div></div>
                     <div class="flip-card-back">
-                        <h3 class="skill-title">MYSTIC CORE</h3>
-                        <p class="skill-desc">Advanced mobility soul-shattering skills. Utilizing the newest meta to haunt the enemy jungle.</p>
+                        <h3>MYSTIC CORE</h3><div class="tech-line"></div>
+                        <p>Soul-shattering mobility. Utilizing advanced mystic mechanics to haunt the enemy jungle and maintain constant, suffocating map pressure.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer">// SYSTEM AUTHENTICATED // TAHA // ELITE JUNGLE DATA // BY #1 FAN</div>
+        <div class="footer">// CLASSIFIED DATA // AUTHENTICATED BY FAN #1 // YEAR 2026 // ONIC ESPORTS</div>
     </div>
 
     <script>
+        // تأثير الكتابة في شاشة التحميل
+        const termLines = [
+            "> LOCATING ONIC DATABASE...",
+            "> BYPASSING FIREWALL...",
+            "> EXTRACTING JUNGLE METRICS...",
+            "> DATA DECRYPTED SUCCESSFULLY."
+        ];
+        let termDiv = document.getElementById('terminal');
+        let lineIndex = 0;
+
+        function typeLine() {
+            if (lineIndex < termLines.length) {
+                termDiv.innerHTML += termLines[lineIndex] + "<br>";
+                lineIndex++;
+                setTimeout(typeLine, 800);
+            } else {
+                termDiv.innerHTML += "<span class='blink'>> _</span>";
+                document.getElementById('startBtn').style.display = 'inline-block';
+            }
+        }
+        
+        // تشغيل تأثير الكتابة فوراً
+        setTimeout(typeLine, 1000);
+
         function startApp() {
-            document.getElementById('bgMusic').play();
+            var music = document.getElementById('bgMusic');
+            music.volume = 0.6;
+            music.play();
             document.getElementById('intro').style.display = 'none';
-            document.getElementById('mainUI').style.display = 'block';
-            setTimeout(() => { document.getElementById('mainUI').style.opacity = '1'; }, 100);
+            var main = document.getElementById('mainUI');
+            main.style.display = 'block';
+            setTimeout(function() { main.style.opacity = '1'; }, 100);
         }
     </script>
 </body>
